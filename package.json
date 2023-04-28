@@ -34,9 +34,10 @@
   ],
   "main": "./src/main/main.ts",
   "scripts": {
+    "create-installer-macos": "npx electron-installer-dmg ./build/macos/Spotify-Downloader-darwin-x64/Spotify-Downloader.app Spotify-Downloader-Setup --out=./installer --overwrite",
     "build-all": "electron-packager . Spotify-Downloader --all --out=./build",
-    "build-macos": "electron-packager . Spotify-Downloader --platform=darwin --arch=x64 --out=./build/macos",
-    "build-windows": "electron-packager . Spotify-Downloader --platform=win32 --arch=x64 --out=./build/windows",
+    "build-macos": "electron-packager . Spotify-Downloader --platform=darwin --arch=x64 --out=./build/macos --overwrite",
+    "build-windows": "electron-packager . Spotify-Downloader --platform=win32 --arch=x64 --out=./build/windows --overwrite",
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
     "build:main": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.main.prod.ts",
     "build:renderer": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
@@ -99,6 +100,7 @@
   },
   "dependencies": {
     "electron-debug": "^3.2.0",
+    "electron-installer-dmg": "^4.0.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^5.3.0",
     "react": "^18.2.0",
