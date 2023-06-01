@@ -14,6 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import saveFile from './saveFile';
 
 class AppUpdater {
   constructor() {
@@ -25,11 +26,15 @@ class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
-ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
-  event.reply('ipc-example', msgTemplate('pong'));
-});
+ipcMain.on(
+  'ipc-save-file',
+  async (event, arg: { name: string; data: string | Buffer }) => {
+    const msgTemplate = (msg: string) => `IPC file saved: ${msg}`;
+    console.log(msgTemplate(arg.name));
+    saveFile(arg.name, arg.data);
+    event.reply('ipc-save-file', msgTemplate('file saved successfully'));
+  }
+);
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');

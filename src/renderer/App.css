@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html.dark body {
+    @apply bg-black;
+  }
+  html.dark body {
+    @apply bg-white;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply rounded-lg bg-slate-300 px-4 py-2 transition-all;
+  }
+
+  .btn:hover {
+    @apply scale-105;
+  }
+
+  .btn:active {
+    @apply scale-95;
+  }
+}
