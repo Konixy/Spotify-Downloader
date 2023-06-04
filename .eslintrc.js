@@ -12,6 +12,8 @@ module.exports = {
     'global-require': 'off',
     'no-console': 'off',
     'compat/compat': 'off',
+    'no-useless-return': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

@@ -2,12 +2,12 @@ import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.scss';
 import Spotify from './Spotify';
 import YouTube from './YouTube';
-import DarkMode from './lib/darkMode';
+import DarkModeSelector from './components/DarkModeSelector';
+import DarkMode from './components/DarkMode';
 
 function Hello() {
   return (
     <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col text-center">
-      <DarkMode />
       <div className="mb-10 text-5xl">
         <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text font-extrabold text-transparent">
           Bienvenue
@@ -29,12 +29,15 @@ function Hello() {
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-        <Route path="/spotify" element={<Spotify />} />
-        <Route path="/youtube" element={<YouTube />} />
-      </Routes>
-    </Router>
+    <DarkMode>
+      <DarkModeSelector />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Hello />} />
+          <Route path="/spotify" element={<Spotify />} />
+          <Route path="/youtube" element={<YouTube />} />
+        </Routes>
+      </Router>
+    </DarkMode>
   );
 }

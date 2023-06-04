@@ -4,10 +4,12 @@
 
 @layer base {
   html.dark body {
-    @apply bg-black;
+    background-color: black;
+    color: white;
   }
-  html.dark body {
-    @apply bg-white;
+  html body {
+    background-color: white;
+    color: black;
   }
 }
 
