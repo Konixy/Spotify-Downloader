@@ -1,5 +1,5 @@
 import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import Spotify from './Spotify';
 import YouTube from './YouTube';
 import DarkMode from './lib/darkMode';

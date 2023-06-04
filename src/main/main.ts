@@ -15,6 +15,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import saveFile from './saveFile';
+import { checkUrl } from './spotify';
 
 class AppUpdater {
   constructor() {
@@ -27,14 +28,19 @@ class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on(
-  'ipc-save-file',
+  'save-file',
   async (event, arg: { name: string; data: string | Buffer }) => {
     const msgTemplate = (msg: string) => `IPC file saved: ${msg}`;
     console.log(msgTemplate(arg.name));
     saveFile(arg.name, arg.data);
-    event.reply('ipc-save-file', msgTemplate('file saved successfully'));
+    event.reply('save-file', msgTemplate('file saved successfully'));
   }
 );
+
+ipcMain.on('check-url', async (event, arg: string) => {
+  const isUrlvalid = await checkUrl(arg);
+  event.reply('check-url', { url: arg, valid: isUrlvalid });
+});
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');

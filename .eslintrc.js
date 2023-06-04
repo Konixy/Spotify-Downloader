@@ -11,6 +11,7 @@ module.exports = {
     'prettier/prettier': 'off',
     'global-require': 'off',
     'no-console': 'off',
+    'compat/compat': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,
