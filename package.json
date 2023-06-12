@@ -1,43 +1,23 @@
 {
-  "description": "A foundation for scalable desktop apps",
-  "keywords": [
-    "electron",
-    "boilerplate",
-    "react",
-    "typescript",
-    "ts",
-    "sass",
-    "webpack",
-    "hot",
-    "reload"
-  ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "description": "Electron app to download spotify songs and playlists",
+  "homepage": "https://github.com/Konixy/Spotify-Downloader#readme",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/Konixy/Spotify-Downloader/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/Konixy/Spotify-Downloader.git"
   },
   "license": "MIT",
-  "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
-  },
-  "contributors": [
-    {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
-    }
-  ],
   "main": "./src/main/main.ts",
+  "author": {
+    "name": "Konixy",
+    "email": "konixy.p@gmail.com"
+  },
   "scripts": {
-    "create-installer-macos": "npx electron-installer-dmg ./build/macos/Spotify-Downloader-darwin-x64/Spotify-Downloader.app Spotify-Downloader-Setup --out=./installer --overwrite",
-    "build-all": "electron-packager . Spotify-Downloader --all --out=./build",
-    "build-macos": "electron-packager . Spotify-Downloader --platform=darwin --arch=x64 --out=./build/macos --overwrite",
-    "build-windows": "electron-packager . Spotify-Downloader --platform=win32 --arch=x64 --out=./build/windows --overwrite",
+    "create-windows-installer": "npx electron-installer-windows --src ./build/windows/Spotify-Downloader-win32-x64 --dest ./installer --exe Spotify-Downloader.exe",
+    "create-macos-installer": "npx electron-installer-dmg ./build/macos/Spotify-Downloader-darwin-x64/Spotify-Downloader.app Spotify-Downloader-Setup --out=./installer --overwrite",
+    "build-app": "node build",
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
     "build:main": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.main.prod.ts",
     "build:renderer": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
@@ -102,7 +82,6 @@
   },
   "dependencies": {
     "electron-debug": "^3.2.0",
-    "electron-installer-dmg": "^4.0.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^5.3.0",
     "isomorphic-unfetch": "^4.0.2",
@@ -144,6 +123,8 @@
     "electron": "^23.0.0",
     "electron-builder": "^23.6.0",
     "electron-devtools-installer": "^3.2.0",
+    "electron-installer-dmg": "^4.0.0",
+    "electron-installer-windows": "^3.0.0",
     "electron-packager": "^17.1.1",
     "electronmon": "^2.0.2",
     "eslint": "^8.33.0",
