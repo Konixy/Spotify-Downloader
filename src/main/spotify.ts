@@ -1,13 +1,15 @@
-import SpotifyToYTMusic from './spotify-to-ytmusic';
-import fetch from 'isomorphic-unfetch';
-import SpotifyUrlInfo from 'spotify-url-info';
-const spotify = SpotifyUrlInfo(fetch);
+// import SpotifyToYTMusic from './spotify-to-ytmusic';
+// import fetch from 'isomorphic-unfetch';
+// import SpotifyUrlInfo from 'spotify-url-info';
 
-const sptyt = SpotifyToYTMusic({
-  clientID: process.env.SPOTIFY_CLIENT_ID,
-  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-});
+// const spotify = SpotifyUrlInfo(fetch);
 
+// const sptyt = SpotifyToYTMusic({
+//   clientID: process.env.SPOTIFY_CLIENT_ID,
+//   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+// });
+
+console.log(process.env.SPOTIFY_CLIENT_ID);
 console.log(process.env.SPOTIFY_CLIENT_ID);
 
 export type CheckUrlResponse = {
@@ -17,10 +19,9 @@ export type CheckUrlResponse = {
 };
 
 export async function checkUrl(url: string): Promise<CheckUrlResponse> {
-  // eslint-disable-next-line no-useless-escape
   if (
     url.match(
-      /^https?:\/\/(?:www\.)?open.spotify\.fr\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+      /^https?:\/\/(?:www\.)?open\.spotify\.com\/(album|track|playlist)\/(?:[-a-zA-Z0-9]*)(?:\?si=[-a-zA-Z0-9]*)?$/
     )
   )
     return {
@@ -30,6 +31,7 @@ export async function checkUrl(url: string): Promise<CheckUrlResponse> {
   return {
     url,
     valid: false,
+    error: 'url does not match the regex',
   };
 }
 

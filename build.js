@@ -1,28 +1,120 @@
-var packager = require("electron-packager");
-var options = {
-  arch: "x64",
-  platform: process.platform,// this will automatically select darwin if darwin or win32 if win32
-  dir: "./", // which directory to pack
-  "app-copyright": "NightCorp",// fill this
-  "app-version": "0.0.1",
-  asar: true, // this will archive your source code.
-  icon: "./logo.ico",
-  name: "Spotify-Downloader", // fill this
-  ignore: [],
-  out: `./build/${process.platform === "win32" ? "windows" : process.platform === "darwin" ? "mac" : "linux"}`,
-  overwrite: true, // will overwrite whatever it might have written before.
-  prune: true,
-  version: "0.0.1",
-  "version-string": {
-    CompanyName: "NightCorp",// fill this
-    FileDescription:
-      "Program that help you download spotify songs and playlists" /*This is what display windows on task manager, shortcut and process*/,
-    OriginalFilename: "",// fill this
-    ProductName: "Spotify-Downloader",// fill this
-    InternalName: "",// fill this
+const builder = require('electron-builder');
+
+console.log(builder.Platform.current.name);
+builder.build({
+  config: {
+    icon: `assets/logo.${
+      builder.Platform.current().name === 'macos' ? 'icns' : 'ico'
+    }`,
+    productName: 'Spotify Downloader',
+    appId: 'fr.nightcorp.spotifydownloader',
+    asar: true,
+    asarUnpack: '**\\*.{node,dll}',
+    files: ['dist', 'node_modules', 'package.json'],
+    afterSign: '.erb/scripts/notarize.js',
+    mac: {
+      target: {
+        target: 'default',
+        arch: ['arm64', 'x64'],
+      },
+      type: 'distribution',
+      hardenedRuntime: true,
+      entitlements: 'assets/entitlements.mac.plist',
+      entitlementsInherit: 'assets/entitlements.mac.plist',
+      gatekeeperAssess: false,
+    },
+    dmg: {
+      contents: [
+        {
+          x: 130,
+          y: 220,
+        },
+        {
+          x: 410,
+          y: 220,
+          type: 'link',
+          path: '/Applications',
+        },
+      ],
+      backgroundColor: 'red',
+    },
+    win: {
+      target: ['nsis'],
+    },
+    linux: {
+      target: ['AppImage'],
+      category: 'Development',
+    },
+    directories: {
+      app: 'release/app',
+      buildResources: 'assets',
+      output: 'release/build',
+    },
+    extraResources: ['./assets/**'],
   },
-};
-packager(options, function done_callback(err, appPaths) {
-  console.log(err);
-  console.log(appPaths);
 });
+
+// "build": {
+//   "productName": "ElectronReact",
+//   "appId": "org.erb.ElectronReact",
+//   "asar": true,
+//   "asarUnpack": "**\\*.{node,dll}",
+//   "files": [
+//     "dist",
+//     "node_modules",
+//     "package.json"
+//   ],
+//   "afterSign": ".erb/scripts/notarize.js",
+//   "mac": {
+//     "target": {
+//       "target": "default",
+//       "arch": [
+//         "arm64",
+//         "x64"
+//       ]
+//     },
+//     "type": "distribution",
+//     "hardenedRuntime": true,
+//     "entitlements": "assets/entitlements.mac.plist",
+//     "entitlementsInherit": "assets/entitlements.mac.plist",
+//     "gatekeeperAssess": false
+//   },
+//   "dmg": {
+//     "contents": [
+//       {
+//         "x": 130,
+//         "y": 220
+//       },
+//       {
+//         "x": 410,
+//         "y": 220,
+//         "type": "link",
+//         "path": "/Applications"
+//       }
+//     ]
+//   },
+//   "win": {
+//     "target": [
+//       "nsis"
+//     ]
+//   },
+//   "linux": {
+//     "target": [
+//       "AppImage"
+//     ],
+//     "category": "Development"
+//   },
+//   "directories": {
+//     "app": "release/app",
+//     "buildResources": "assets",
+//     "output": "release/build"
+//   },
+//   "extraResources": [
+//     "./assets/**"
+//   ],
+//   "publish": {
+//     "provider": "github",
+//     "owner": "electron-react-boilerplate",
+//     "repo": "electron-react-boilerplate"
+//   }
+// },
