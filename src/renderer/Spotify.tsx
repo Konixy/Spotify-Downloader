@@ -15,7 +15,7 @@ export default function Spotify() {
     window.electron.ipcRenderer.sendMessage('check-url', url);
     window.electron.ipcRenderer.on(
       'check-url',
-      (arg: { url: string; valid: boolean }) => {
+      (arg: { url: string; valid: boolean; error?: string }) => {
         if (arg.url !== url) return;
         if (arg.valid) {
           // setBtnLabel('Récupération des informations...');
@@ -24,7 +24,7 @@ export default function Spotify() {
           setBtnLabel('Url valid!');
         } else {
           setIsBusy(false);
-          setError('Url invalide !');
+          setError(`Invalid url: ${arg.error}`);
           setBtnLabel('Télécharger');
         }
       }
