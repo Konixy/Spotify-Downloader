@@ -17,13 +17,15 @@ export type CheckUrlResponse = {
 };
 
 export async function checkUrl(url: string): Promise<CheckUrlResponse> {
-  if ()
+  if (url.match(/^https?:\/\/(?:www\.)?open.spotify\.fr\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/))
     return {
       url,
-      valid: false,
-      error: 'invalid url',
+      valid: true,
     };
-  return {};
+  return {
+    url,
+    valid: false
+  };
 }
 
 export function spotifySearch(query: string) {
