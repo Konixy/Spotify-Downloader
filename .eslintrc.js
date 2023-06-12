@@ -14,6 +14,8 @@ module.exports = {
     'compat/compat': 'off',
     'no-useless-return': 'off',
     'react-hooks/exhaustive-deps': 'off',
+    'no-plusplus': 'off',
+    'no-underscore-dangle': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

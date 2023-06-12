@@ -18,7 +18,10 @@ export default function Spotify() {
       (arg: { url: string; valid: boolean }) => {
         if (arg.url !== url) return;
         if (arg.valid) {
-          setBtnLabel('Récupération des informations...');
+          // setBtnLabel('Récupération des informations...');
+          setIsBusy(false);
+          setError(null);
+          setBtnLabel('Url valid!');
         } else {
           setIsBusy(false);
           setError('Url invalide !');
@@ -32,9 +35,9 @@ export default function Spotify() {
     <div>
       <BackBtn />
       <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col text-center">
-        <div className="flex flex-row text-center">
-          <i className="fab fa-spotify text-2xl text-green-500" />
-          <span className="bg-gradient-to-r from-green-500 to-purple-400 bg-clip-text text-3xl font-extrabold text-transparent">
+        <div className="mb-16 flex flex-row text-center">
+          <i className="fab fa-spotify mr-2 text-6xl text-[#1DB954]" />
+          <span className="bg-gradient-to-r from-[#1DB954] to-purple-400 bg-clip-text text-6xl font-extrabold text-transparent">
             Spotify
           </span>
         </div>
@@ -46,12 +49,12 @@ export default function Spotify() {
             value={url}
             disabled={isBusy}
             onChange={(e) => setUrl(e.target.value)}
-            className="w-[75vh] rounded-xl border-2 border-gray-900 py-2 pl-4 pr-20 outline-none"
+            className="w-[75vh] rounded-xl border-2 border-gray-900 py-2 pl-4 pr-20 text-black outline-none dark:border-gray-100 dark:bg-black dark:text-white"
           />
           <input
             type="button"
             value="Coller"
-            className="-ml-16"
+            className="-ml-16 text-black dark:text-white"
             onClick={async () =>
               !isBusy && setUrl(await navigator.clipboard.readText())
             }

@@ -38,8 +38,9 @@ ipcMain.on(
 );
 
 ipcMain.on('check-url', async (event, arg: string) => {
-  const isUrlvalid = await checkUrl(arg);
-  event.reply('check-url', { url: arg, valid: isUrlvalid });
+  const urlInfo = await checkUrl(arg);
+  console.log(urlInfo);
+  event.reply('check-url', urlInfo);
 });
 
 if (process.env.NODE_ENV === 'production') {
