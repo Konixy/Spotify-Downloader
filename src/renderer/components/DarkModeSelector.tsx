@@ -9,9 +9,9 @@ export default function DarkModeSelector() {
     setIsOpen(!isOpen);
   }
 
-  function buttonClick(state: string) {
+  function buttonClick(dark: boolean) {
     return () => {
-      darkMode.setMode(state);
+      darkMode.setDarkMode(dark);
       setIsOpen(false);
     };
   }
@@ -23,25 +23,18 @@ export default function DarkModeSelector() {
       </button>
       <div className={`absolute text-center ${!isOpen && 'hidden'}`}>
         <button
-          className={`${darkMode.dark && !darkMode.auto && 'bg-gray-300'}`}
+          className={`${darkMode.dark && 'bg-gray-300'}`}
           type="button"
-          onClick={buttonClick('dark')}
+          onClick={buttonClick(true)}
         >
           Dark
         </button>
         <button
-          className={`${!darkMode.dark && !darkMode.auto && 'bg-gray-300'}`}
+          className={`${!darkMode.dark && 'bg-gray-300'}`}
           type="button"
-          onClick={buttonClick('light')}
+          onClick={buttonClick(false)}
         >
           Light
-        </button>
-        <button
-          className={`${darkMode.auto && 'bg-gray-300'}`}
-          type="button"
-          onClick={buttonClick('auto')}
-        >
-          Auto
         </button>
       </div>
     </div>

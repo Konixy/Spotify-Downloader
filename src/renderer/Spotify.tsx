@@ -41,7 +41,7 @@ export default function Spotify() {
             Spotify
           </span>
         </div>
-        {error && <div className="text-red-700">{error}</div>}
+        <div className="text-red-700">{error}</div>
         <div className="flex flex-row">
           <input
             type="text"

@@ -43,6 +43,10 @@ ipcMain.on('check-url', async (event, arg: string) => {
   event.reply('check-url', urlInfo);
 });
 
+ipcMain.on("theme-change", async (event, arg) => {
+  
+})
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
